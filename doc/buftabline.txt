@@ -48,10 +48,16 @@ effect immediately unless you force an update: >
     from left to right.
 
 
-*g:buftabline_indicators*    boolean (default off)
+*g:buftabline_indicator_modified*    boolean (default off)
 
-    When on, the buffer's state is indicated in the buffer label. Currently
-    the only state indicated is whether the buffer is 'modified'.
+    When on, the buffer's modified state is indicated as a plus sign in the
+    buffer label.
+
+
+*g:buftabline_indicator_readonly*    boolean (default off)
+
+    When on, the buffer's readonly state is indicated as a lock icon in the
+    buffer label.
 
 
 *g:buftabline_separators*    boolean (default off)
