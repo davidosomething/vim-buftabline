@@ -66,6 +66,11 @@ augroup BufTabLine
       let tab.hilite = currentbuf == bufnum ? 'Current' : bufwinnr(bufnum) > 0 ? 'Active' : 'Hidden'
       let bufpath = bufname(bufnum)
       if strlen(bufpath)
+        " Prefix
+        let pre = ''
+        let pre .= ( !isdirectory(bufpath) && g:buftabline_indicator_readonly && getbufvar(bufnum, '&ro') ? '🔒' : '' ) . screen_num
+        if strlen(pre) | let pre .= ' ' | endif
+
         let bufpath = substitute(fnamemodify(bufpath, ':p:~:.'), '^$', '.', '')
         let tab.head = fnamemodify(bufpath, ':h')
         let tab.tail = fnamemodify(bufpath, ':t')
@@ -76,12 +81,7 @@ augroup BufTabLine
 
         " Suffix
         let suf = directory_suf
-        let suf .= ( g:buftabline_indicator_modified && getbufvar(bufnum, '&mod') ? '+' : '' ) . screen_num
-
-        " Prefix
-        let pre = ''
-        let pre .= ( g:buftabline_indicator_readonly && getbufvar(bufnum, '&ro') ? '🔒' : '' ) . screen_num
-        if strlen(pre) | let pre .= ' ' | endif
+        let suf .= ( !isdirectory(bufpath) && g:buftabline_indicator_modified && getbufvar(bufnum, '&mod') ? '+' : '' )
 
         " Tab name result
         let tab.fmt = pre . '%s' . suf
